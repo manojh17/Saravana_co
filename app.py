@@ -62,13 +62,13 @@ def generate():
         doc = DocxTemplate("SARAVANA_fixed.docx")
         doc.render(context)
 
-        docx_file = f"Invoice_{invoice_no}.docx"
+        docx_file = os.path.join("/tmp", f"Invoice_{invoice_no}.docx")
         doc.save(docx_file)
 
-        pdf_file = f"Invoice_{invoice_no}.pdf"
+        pdf_file = os.path.join("/tmp", f"Invoice_{invoice_no}.pdf")
         convert(docx_file, pdf_file)
 
-        return jsonify({"success": True, "download_url": f"/download/{pdf_file}"})
+        return jsonify({"success": True, "download_url": f"/download/{os.path.basename(pdf_file)}"})
     
     except Exception as e:
         return jsonify({"success": False, "error": str(e)}), 500
@@ -76,7 +76,8 @@ def generate():
 @app.route("/download/<filename>")
 def download(filename):
     try:
-        return send_file(filename, as_attachment=True)
+        file_path = os.path.join("/tmp", filename)
+        return send_file(file_path, as_attachment=True)
     except Exception as e:
         return str(e)
 
