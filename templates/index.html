@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Saravana & Co Billing</title>
+    <!-- Google Fonts for modern typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="overlay" id="loadingOverlay">
+        <div class="spinner"></div>
+        <p class="loading-text">Generating PDF Invoice...</p>
+    </div>
+
+    <div class="app-container">
+        <header>
+            <div class="header-content">
+                <div class="logo">S&C</div>
+                <div class="header-text">
+                    <h1>Saravana Billing</h1>
+                    <p>Generate precise, beautiful invoices instantly.</p>
+                </div>
+            </div>
+        </header>
+
+        <form id="billingForm">
+            <!-- Customer Details Section -->
+            <section class="card fade-in">
+                <h2>Customer Details</h2>
+                <div class="grid-2">
+                    <div class="input-group">
+                        <label for="name">Customer Name</label>
+                        <input type="text" id="name" required placeholder="John Doe">
+                    </div>
+                    <div class="input-group">
+                        <label for="invoice_no">Invoice No.</label>
+                        <input type="text" id="invoice_no" required placeholder="INV-888">
+                    </div>
+                    <div class="input-group">
+                        <label for="mobile">Mobile Number</label>
+                        <input type="tel" id="mobile" placeholder="9999999999">
+                    </div>
+                    <div class="input-group">
+                        <label for="address">Address</label>
+                        <input type="text" id="address" placeholder="123 Main St">
+                    </div>
+                </div>
+            </section>
+
+            <!-- Items Section -->
+            <section class="card fade-in delay-1">
+                <div class="section-header">
+                    <h2>Items</h2>
+                    <button type="button" class="btn btn-secondary btn-sm" id="addItemBtn">
+                        + Add Item
+                    </button>
+                </div>
+                
+                <div class="table-responsive">
+                    <table id="itemsTable">
+                        <thead>
+                            <tr>
+                                <th>Product Name</th>
+                                <th>HSN Code</th>
+                                <th>Quantity</th>
+                                <th>Rate (₹)</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody id="itemsBody">
+                            <!-- Rows injected by JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <div class="submit-container fade-in delay-2">
+                <button type="submit" class="btn btn-primary generate-btn">
+                    <span>Generate Invoice PDF</span> 
+                    <svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                    </svg>
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
